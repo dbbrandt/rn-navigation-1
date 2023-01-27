@@ -1,11 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import HomePage from "./screens/homePage";
+import { StyleSheet, View, SafeAreaView } from 'react-native';
+import CategoriesScreen from "./screens/categoriesScreen";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <HomePage>Category Home Page!</HomePage>
+      <SafeAreaView>
+        <CategoriesScreen/>
+      </SafeAreaView>
       <StatusBar style="auto" />
     </View>
   );
@@ -16,7 +18,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 60,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'left',
+    // justifyContent: 'left',
   },
 });
