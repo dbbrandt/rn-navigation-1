@@ -1,12 +1,25 @@
-import {View, Text, StyleSheet, FlatList} from "react-native";
+import {View, StyleSheet, FlatList, useWindowDimensions} from "react-native";
 import {CATEGORIES} from "../data/dummy-data";
 import CategoryGrid from "../components/categoryGrid";
 
-function CategoriesScreen({children}) {
+function CategoriesScreen({ navigation }) {
+    const {height, width} = useWindowDimensions();
+    const columns = width > 600 ? 3 : 2;
 
-    function renderCategoryItem(title, color) {
+    function renderCategoryItem(itemData) {
+        function pressHandler() {
+            navigation.navigate('MealsOverview', {
+                categoryId: itemData.item.id,
+                color: itemData.item.color,
+            });
+        }
+
         return (
-            <CategoryGrid color={color} title={title}/>
+            <CategoryGrid color={itemData.item.color}
+                          title={itemData.item.title}
+                          columns={columns}
+                          onPress={pressHandler}
+            />
         )
     }
 
@@ -14,11 +27,10 @@ function CategoriesScreen({children}) {
         <View style={styles.rootContainer}>
             <FlatList
                 data={CATEGORIES}
-                numColumns={2}
+                key={columns}
+                numColumns={columns}
                 keyExtractor={item => item.id}
-                renderItem={({item}) => (
-                    renderCategoryItem(item.title, item.color)
-                )}
+                renderItem={renderCategoryItem}
             />
         </View>
     )
