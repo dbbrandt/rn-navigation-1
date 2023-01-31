@@ -9,7 +9,7 @@ function MealsOverviewScreen({ route, navigation }) {
     const meals = MEALS.filter((mealsItem) => mealsItem.categoryIds.includes(categoryId));
 
     function renderMealItem(itemData) {
-        return <MealItem mealData={itemData.item}/>
+        return <MealItem mealId={itemData.item.id}/>
     }
 
     useEffect(() => {

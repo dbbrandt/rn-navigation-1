@@ -3,14 +3,17 @@ import { useNavigation } from '@react-navigation/native';
 import BooleanView from "./booleanView";
 import BooleanMealData from "../data/BooleanMealData";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import { MEALS } from '../data/dummy-data';
 
-function MealItem({mealData, navagation}) {
+
+function MealItem({mealId, navagation}) {
+    const mealData = MEALS.find((meal) => meal.id === mealId);
     const {overviewItems, dietaryItems} = BooleanMealData(mealData);
     const items = [...overviewItems, ...dietaryItems];
     const navigation = useNavigation();
 
-    function onPress() {
-        navigation.navigate('MealDetail', {mealData: mealData});
+    function mealSelectionHandler() {
+        navigation.navigate('MealDetail', {mealId: mealData.id});
     }
 
     return (
@@ -18,7 +21,7 @@ function MealItem({mealData, navagation}) {
             <Pressable
                 android_ripple={{color: 'lightgrey'}}
                 style={({pressed}) => pressed && styles.buttonPressed}
-                onPress={onPress}
+                onPress={mealSelectionHandler}
             >
 
                 <View style={styles.contentOuterContainer}>

@@ -28,17 +28,6 @@ export default function App() {
                     <Stack.Screen
                         name="MealsOverview"
                         component={MealsOverviewScreen}
-                        // options={( { route, navigation }) => {
-                        //     const title = route.params.title;
-                        //     return {
-                        //         title: title,
-                        //     }
-                        // }}                        // options={( { route, navigation }) => {
-                        //     const title = route.params.title;
-                        //     return {
-                        //         title: title,
-                        //     }
-                        // }}
                     />
                     <Stack.Screen name="MealDetail" component={MealDetailScreen}/>
                 </Stack.Navigator>

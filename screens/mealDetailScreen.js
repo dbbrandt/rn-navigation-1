@@ -1,11 +1,13 @@
 import {ScrollView, View, Text, StyleSheet, Image} from 'react-native';
 import BooleanView from "../components/booleanView";
 import BooleanMealData from "../data/BooleanMealData";
+import { MEALS } from '../data/dummy-data';
 import {useEffect} from "react";
 
 
 function MealDetailScreen({ route, navigation }) {
-    const mealData = route.params.mealData;
+    const mealId = route.params.mealId;
+    const mealData = MEALS.find((meal) => meal.id === mealId);
     const {overviewItems, dietaryItems} = BooleanMealData(mealData);
 
     useEffect(() => {
