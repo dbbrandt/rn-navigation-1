@@ -1,9 +1,10 @@
+import { useEffect } from 'react';
 import { View, FlatList, StyleSheet } from "react-native";
-import { MEALS } from '../data/dummy-data';
+import { CATEGORIES, MEALS } from '../data/dummy-data';
 import MealItem from "../components/mealItem";
 
 
-function MealsOverviewScreen({ route }) {
+function MealsOverviewScreen({ route, navigation }) {
     const { categoryId, color } = route.params;
     const meals = MEALS.filter((mealsItem) => mealsItem.categoryIds.includes(categoryId));
 
@@ -11,8 +12,18 @@ function MealsOverviewScreen({ route }) {
         return <MealItem mealData={itemData.item}/>
     }
 
+    useEffect(() => {
+        const categoryTitle = CATEGORIES.find((category) => category.id === categoryId).title;
+        navigation.setOptions({
+            title: categoryTitle,
+            contentStyle: {
+                backgroundColor: color,
+            }
+        }
+    )}, [categoryId, navigation]);
+
     return (
-        <View style={[styles.container, {backgroundColor: color}]}>
+        <View style={styles.container}>
             <FlatList data={meals} keyExtractor={(item) => item.id} renderItem={renderMealItem}/>
         </View>
     )
