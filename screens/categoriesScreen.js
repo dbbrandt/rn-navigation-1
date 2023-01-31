@@ -40,5 +40,6 @@ export default CategoriesScreen;
 
 const styles = StyleSheet.create({
     rootContainer: {
+        padding: 10,
     },
 })

@@ -6,14 +6,6 @@ import BooleanMealData from "../data/BooleanMealData";
 function MealDetailScreen({route}) {
     const mealData = route.params.mealData;
     const {overviewItems, dietaryItems} = BooleanMealData(mealData);
-    // const overviewItems = mealBooleanLists.overViewItems;
-    // const dietaryItems = mealBooleanLists.dietaryItems;
-    // const overviewItems = [mealData.affordability, mealData.complexity, mealData.duration];
-    // const dietaryItems = [];
-    // if (mealData.isGlutenFree) dietaryItems.push('Gluten Free');
-    // if (mealData.isVegan) dietaryItems.push('Vegan');
-    // if (mealData.isVegetarian) dietaryItems.push('Vegetarian');
-    // if (mealData.isLactoseFree) dietaryItems.push('Lactose Free');
 
     return (
         <ScrollView style={styles.rootContainer}>
@@ -24,14 +16,14 @@ function MealDetailScreen({route}) {
                 <BooleanView itemList={overviewItems}/>
                 <Text style={styles.textSection}>Ingredients:</Text>
                 <View style={styles.sectionContainer}>
-                    {mealData.ingredients.map((ingredient) =>
-                        <Text style={styles.sectionItem}>&bull; {ingredient}</Text>
+                    {mealData.ingredients.map((ingredient, index) =>
+                        <Text key={index} style={styles.sectionItem}>&bull; {ingredient}</Text>
                     )}
                 </View>
                 <Text style={styles.textSection}>Directions:</Text>
                 <View style={styles.sectionContainer}>
                     {mealData.steps.map((direction, index) =>
-                        <Text style={styles.sectionItem}>{index + 1}. {direction}</Text>
+                        <Text key={index} style={styles.sectionItem}>{index + 1}. {direction}</Text>
                     )}
                 </View>
                 <Text style={styles.textSection}>Dietary:</Text>
@@ -90,9 +82,9 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
     },
     imageStyle: {
-        height: 150,
-        width: 150,
-        margin: 10,
+        width: '100%',
+        height: 200,
+        borderRadius: 8,
     }
 
 })

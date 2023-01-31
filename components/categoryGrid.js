@@ -2,7 +2,7 @@ import {View, Text, StyleSheet, Pressable, useWindowDimensions, Platform} from "
 
 function CategoryGrid({color, title, columns, onPress}) {
     const {height, width} = useWindowDimensions();
-    const boxMargin = 5;
+    const boxMargin = 10;
     const landscapePadding = 50;
     const orientation = (width > height) ? 1 : 0;
     const boxSideSize = (width  / columns) - (boxMargin * columns) - (orientation * landscapePadding);

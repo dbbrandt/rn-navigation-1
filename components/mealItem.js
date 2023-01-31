@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, Image, Route} from 'react-native';
+import {View, Text, StyleSheet, Image, Platform} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BooleanView from "./booleanView";
 import BooleanMealData from "../data/BooleanMealData";
@@ -10,7 +10,6 @@ function MealItem({mealData, navagation}) {
     const navigation = useNavigation();
 
     function onPress() {
-        console.log('Pressed');
         navigation.navigate('MealDetail', {mealData: mealData});
     }
 
@@ -22,9 +21,9 @@ function MealItem({mealData, navagation}) {
                 onPress={onPress}
             >
 
-                <Text style={styles.title}>{mealData.title}</Text>
                 <View style={styles.contentOuterContainer}>
                     <Image style={styles.imageStyle} source={{uri: mealData.imageUrl}}/>
+                    <Text style={styles.title}>{mealData.title}</Text>
                     <BooleanView itemList={items} style={styles.booleanText}/>
                 </View>
             </Pressable>
@@ -38,28 +37,29 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         margin: 5,
-        padding: 10,
         borderRadius: 8,
-        elevation: 2,
+        elevation: 10,
         backgroundColor: 'white',
         shadowColor: 'black',
         shadowOpacity: 0.25,
         shadowOffset: {width: 0, height: 5},
         showRadius: 8,
-        overflow: 'hidden',
+        overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
     },
     title: {
         textAlign: 'center',
         fontWeight: 'bold',
+        fontSize: 16,
+        padding: 10,
     },
     contentOuterContainer: {
         flex: 1,
-        flexDirection: 'row',
+        borderRadius: 8,
+        overflow: 'hidden',
     },
     imageStyle: {
-        height: 100,
-        width: 100,
-        margin: 10,
+        width: '100%',
+        height: 200,
     },
     booleanText: {
         fontSize: 12,

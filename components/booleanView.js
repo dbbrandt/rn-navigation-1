@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 function BooleanView({ itemList, style }) {
     return (
     <View style={styles.booleanSection}>
-        {itemList.map((item) => <Text style={[styles.booleanItem, style]}>{item}</Text>)}
+        {itemList.map((item) => <Text key={item} style={[styles.booleanItem, style]}>{item.toUpperCase()}</Text>)}
     </View>
     )
 }
@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap',
+        justifyContent: 'center',
         padding: 10,
     },
     booleanItem: {
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         borderWidth: 1,
         borderColor: 'lightgrey',
-        borderRadius: 20,
+        borderRadius: 10,
         elevation: 2,
         backgroundColor: 'lightyellow',
         shadowColor: 'black',
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
         shadowOffset: {width: 0, height: 5},
         showRadius: 20,
         fontWeight: 'bold',
-        color: '#696363',
+        color: '#585353',
         overflow: 'hidden',
     },
 })

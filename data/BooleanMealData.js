@@ -1,5 +1,5 @@
 function BooleanMealData(mealData) {
-    const duration = `${mealData.duration} min.`;
+    const duration = `${mealData.duration}m`;
     const overviewItems = [mealData.affordability, mealData.complexity, duration];
     const dietaryItems = [];
     if (mealData.isGlutenFree) dietaryItems.push('Gluten Free');
