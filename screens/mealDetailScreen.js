@@ -1,14 +1,28 @@
-import {ScrollView, View, Text, StyleSheet, Image} from 'react-native';
+import { useLayoutEffect } from 'react';
+import {ScrollView, View, Text, StyleSheet, Image } from 'react-native';
 import BooleanView from "../components/booleanView";
 import BooleanMealData from "../data/BooleanMealData";
 import { MEALS } from '../data/dummy-data';
 import {useEffect} from "react";
+import IconButton from "../components/iconButton";
 
 
 function MealDetailScreen({ route, navigation }) {
     const mealId = route.params.mealId;
     const mealData = MEALS.find((meal) => meal.id === mealId);
     const {overviewItems, dietaryItems} = BooleanMealData(mealData);
+
+    function headerButtonPressHandler() {
+        console.log('Button Pressed');
+    }
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => {
+                return <IconButton icon='star' color='white' onPress={headerButtonPressHandler}/>
+            }
+        })
+    }, [navigation, headerButtonPressHandler]);
 
     useEffect(() => {
         navigation.setOptions({
@@ -92,7 +106,7 @@ const styles = StyleSheet.create({
     },
     imageStyle: {
         width: '100%',
-        height: 200,
+        height: 300,
         borderRadius: 8,
     }
 

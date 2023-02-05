@@ -16,9 +16,9 @@ function MealsOverviewScreen({ route, navigation }) {
         const categoryTitle = CATEGORIES.find((category) => category.id === categoryId).title;
         navigation.setOptions({
             title: categoryTitle,
-            contentStyle: {
-                backgroundColor: color,
-            }
+            // contentStyle: {
+            //     backgroundColor: color,
+            // }
         }
     )}, [categoryId, navigation]);
 

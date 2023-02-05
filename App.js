@@ -1,36 +1,40 @@
 import {StatusBar} from 'expo-status-bar';
-import {StyleSheet, View, SafeAreaView} from 'react-native';
+import {StyleSheet, View, Button} from 'react-native';
 import {NavigationContainer} from "@react-navigation/native";
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import CategoriesScreen from "./screens/categoriesScreen";
-import MealsOverviewScreen from "./screens/mealsOverviewScreen";
-import MealDetailScreen from "./screens/mealDetailScreen";
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import MealsHomeScreen from "./screens/mealsHomeScreen";
+import FavoritesOverviewScreen from "./screens/favoritesOverviewScreen";
 
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
+const favoriteMeals = ['m1','m2','m3'];
 
 export default function App() {
     return (
         <View style={styles.rootContainer}>
             <StatusBar style="light"/>
             <NavigationContainer>
-                <Stack.Navigator screenOptions={{
-                    headerStyle: { backgroundColor: '#622a09'},
-                    headerTintColor: 'white',
-                    contentStyle: {backgroundColor: '#412b1c' }
-                }}>
-                    <Stack.Screen
-                        name="MealsCategories"
-                        component={CategoriesScreen}
-                        options={{
-                            title: 'All Categories',
-                        }}
+                <Drawer.Navigator
+                    initialRouteName='FavoritesOverview'
+                    screenOptions={({
+                        headerShown: false
+                })}>
+                    <Drawer.Screen name='Home'
+                                   component={MealsHomeScreen}
+                                   initialParams={{
+                                       initialRoute: 'MealsCategories',
+                                       favoriteMeals: favoriteMeals
+                                   }}
                     />
-                    <Stack.Screen
-                        name="MealsOverview"
-                        component={MealsOverviewScreen}
+                    <Drawer.Screen name='FavoritesHome'
+                                   component={MealsHomeScreen}
+                                   initialParams={{
+                                       initialRoute: 'Favorites',
+                                       favoriteMeals: favoriteMeals
+                                   }}
+                                   options={{ drawerLabel: 'Favorites' }}
                     />
-                    <Stack.Screen name="MealDetail" component={MealDetailScreen}/>
-                </Stack.Navigator>
+
+                </Drawer.Navigator>
             </NavigationContainer>
         </View>
     );
