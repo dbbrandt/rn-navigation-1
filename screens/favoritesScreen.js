@@ -1,18 +1,25 @@
+import { useIsFocused } from '@react-navigation/native'
 import {View, Text, FlatList, StyleSheet} from "react-native";
-import {MEALS} from '../data/dummy-data';
 import MealItem from "../components/mealItem";
 
 function FavoritesScreen({route, navigation}) {
     const favoriteMeals = route.params.favoriteMeals;
+    const isFocused = useIsFocused();
+    let favoriteCount = favoriteMeals.length;
 
     function renderMealItem(itemData) {
-        console.log(`Displaying MealItem for ${itemData.item}`);
-        return <MealItem mealId={itemData.item}/>
+        return <MealItem mealId={itemData.item} favoriteMeals={favoriteMeals}/>
     }
 
+    useIsFocused(() => {
+        console.log(`favorites useIsFocused: ${favoriteMeals}`);
+        favoriteCount = favoriteMeals.length;
+    }, [isFocused])
+
+    console.log(`Favorites Screen: count: ${favoriteCount}`);
     return (
         <View style={styles.container}>
-            <Text style={styles.countText}>Showing {favoriteMeals.length} favorite meals</Text>
+            <Text style={styles.countText}>Showing {favoriteCount} favorite meals</Text>
             <FlatList data={favoriteMeals} keyExtractor={(item) => item} renderItem={renderMealItem}/>
         </View>
     )

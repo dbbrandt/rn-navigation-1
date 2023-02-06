@@ -6,7 +6,6 @@ function BooleanMealData(mealData) {
     if (mealData.isVegan) dietaryItems.push('Vegan');
     if (mealData.isVegetarian) dietaryItems.push('Vegetarian');
     if (mealData.isLactoseFree) dietaryItems.push('Lactose Free');
-    console.log(`overviewItems: ${overviewItems}  dietaryItems: ${dietaryItems}`);
     return {overviewItems: overviewItems, dietaryItems: dietaryItems}
 }
 

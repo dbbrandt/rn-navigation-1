@@ -1,19 +1,21 @@
 import {View, Text, StyleSheet, Image, Platform} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import BooleanView from "./booleanView";
 import BooleanMealData from "../data/BooleanMealData";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import { MEALS } from '../data/dummy-data';
 
 
-function MealItem({mealId, navagation}) {
+function MealItem({mealId}) {
     const mealData = MEALS.find((meal) => meal.id === mealId);
     const {overviewItems, dietaryItems} = BooleanMealData(mealData);
     const items = [...overviewItems, ...dietaryItems];
     const navigation = useNavigation();
+    const route = useRoute();
 
     function mealSelectionHandler() {
-        navigation.navigate('MealDetail', {mealId: mealData.id});
+        const favoriteMeals = route.params.favoriteMeals;
+        navigation.navigate('MealDetail', {mealId: mealData.id, favoriteMeals: favoriteMeals});
     }
 
     return (

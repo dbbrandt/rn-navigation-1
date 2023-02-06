@@ -8,12 +8,13 @@ import IconButton from "../components/iconButton";
 
 
 function MealDetailScreen({ route, navigation }) {
-    const mealId = route.params.mealId;
+    const { mealId, favoriteMeals } = route.params;
     const mealData = MEALS.find((meal) => meal.id === mealId);
     const {overviewItems, dietaryItems} = BooleanMealData(mealData);
 
     function headerButtonPressHandler() {
-        console.log('Button Pressed');
+        console.log(`Added favorite: ${mealId} - ${mealData.title} to ${favoriteMeals}`);
+        if (!favoriteMeals.includes(mealId)) favoriteMeals.push(mealId);
     }
 
     useLayoutEffect(() => {

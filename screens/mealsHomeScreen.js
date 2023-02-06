@@ -9,8 +9,7 @@ import FavoritesScreen from "./favoritesScreen";
 const Stack = createNativeStackNavigator();
 
 function MealsHomeScreen({route, navigation}) {
-    const favoriteMeals = route.params.favoriteMeals;
-    const initialRoute = route.params.initialRoute;
+    const { initialRoute, favoriteMeals } = route.params;
 
     function headerButtonPressHandler() {
         navigation.openDrawer();
@@ -19,6 +18,7 @@ function MealsHomeScreen({route, navigation}) {
     return (
         <Stack.Navigator
             initialRouteName={initialRoute}
+            initialParams={{favoriteMeals: favoriteMeals}}
             screenOptions={{
                 headerStyle: {backgroundColor: '#622a09'},
                 headerTintColor: 'white',
@@ -27,6 +27,9 @@ function MealsHomeScreen({route, navigation}) {
             <Stack.Screen
                 name="MealsCategories"
                 component={CategoriesScreen}
+                initialParams={{
+                    favoriteMeals: favoriteMeals,
+                }}
                 options={{
                     title: 'All Categories',
                     headerLeft: () => {
@@ -37,15 +40,20 @@ function MealsHomeScreen({route, navigation}) {
             <Stack.Screen
                 name="MealsOverview"
                 component={MealsOverviewScreen}
+                initialParams={{
+                    favoriteMeals: favoriteMeals,
+                }}
                 options={{
-                contentStyle: {backgroundColor: '#d4ae95'}
+                    contentStyle: {backgroundColor: '#d4ae95'}
                 }}
 
         />
             <Stack.Screen name="MealDetail" component={MealDetailScreen}/>
             <Stack.Screen name='Favorites'
                           component={FavoritesScreen}
-                          initialParams={{favoriteMeals: favoriteMeals}}
+                          initialParams={{
+                              favoriteMeals: favoriteMeals,
+                          }}
                           options={{
                               title: 'Favorites',
                               contentStyle: {backgroundColor: '#d4ae95'},

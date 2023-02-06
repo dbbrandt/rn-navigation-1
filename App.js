@@ -3,10 +3,9 @@ import {StyleSheet, View, Button} from 'react-native';
 import {NavigationContainer} from "@react-navigation/native";
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import MealsHomeScreen from "./screens/mealsHomeScreen";
-import FavoritesOverviewScreen from "./screens/favoritesOverviewScreen";
 
 const Drawer = createDrawerNavigator();
-const favoriteMeals = ['m1','m2','m3'];
+const favoriteMeals = [];
 
 export default function App() {
     return (
