@@ -1,10 +1,12 @@
+import { useEffect } from "react";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-
 import CategoriesScreen from "./categoriesScreen";
 import MealsOverviewScreen from "./mealsOverviewScreen";
 import MealDetailScreen from "./mealDetailScreen";
 import IconButton from "../components/iconButton";
 import FavoritesScreen from "./favoritesScreen";
+import {CommonActions, StackActions} from "@react-navigation/native";
+// import { useNavigation } from "@react-navigation/native";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +16,14 @@ function MealsHomeScreen({route, navigation}) {
     function headerButtonPressHandler() {
         navigation.openDrawer();
     }
+
+    useEffect(() => {
+        const goHome = route.params.goHome;
+        if (goHome) {
+            navigation.dispatch(CommonActions.setParams({ goHome: false }));
+            navigation.dispatch(StackActions.popToTop());
+        }
+    }, [route, navigation])
 
     return (
         <Stack.Navigator
@@ -30,6 +40,14 @@ function MealsHomeScreen({route, navigation}) {
                 initialParams={{
                     favoriteMeals: favoriteMeals,
                 }}
+                // listeners={({navigation, route}) => ({
+                //     transitionStart: (e) =>{
+                //         // e.preventDefault();
+                //         let  resetToHome = route.params.goHome;
+                //         console.log(`stack transition: goHome: ${goHome}`);
+                //         if (resetToHome) navigation.dispatch(StackActions.popToTop());
+                //     }
+                // })}
                 options={{
                     title: 'All Categories',
                     headerLeft: () => {

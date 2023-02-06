@@ -12,11 +12,9 @@ function FavoritesScreen({route, navigation}) {
     }
 
     useIsFocused(() => {
-        console.log(`favorites useIsFocused: ${favoriteMeals}`);
         favoriteCount = favoriteMeals.length;
     }, [isFocused])
 
-    console.log(`Favorites Screen: count: ${favoriteCount}`);
     return (
         <View style={styles.container}>
             <Text style={styles.countText}>Showing {favoriteCount} favorite meals</Text>

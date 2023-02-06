@@ -1,6 +1,6 @@
 import {StatusBar} from 'expo-status-bar';
-import {StyleSheet, View, Button} from 'react-native';
-import {NavigationContainer} from "@react-navigation/native";
+import {StyleSheet, View, } from 'react-native';
+import { NavigationContainer  } from "@react-navigation/native";
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import MealsHomeScreen from "./screens/mealsHomeScreen";
 
@@ -29,12 +29,19 @@ export default function App() {
                             width: 150,
                         },
                 })}>
-                    <Drawer.Screen name='Home'
+                    <Drawer.Screen name='Meals'
                                    component={MealsHomeScreen}
                                    initialParams={{
                                        initialRoute: 'MealsCategories',
-                                       favoriteMeals: favoriteMeals
+                                       favoriteMeals: favoriteMeals,
+                                       goHome: false,
                                    }}
+                                   listeners={({navigation, route}) => ({
+                                       drawerItemPress: (e) =>{
+                                           // e.preventDefault();
+                                           navigation.dispatch(CommonActions.setParams({ goHome: true }));
+                                       }
+                                   })}
                     />
                     <Drawer.Screen name='FavoritesHome'
                                    component={MealsHomeScreen}
@@ -43,6 +50,7 @@ export default function App() {
                                        favoriteMeals: favoriteMeals
                                    }}
                                    options={{ drawerLabel: 'Favorites' }}
+
                     />
 
                 </Drawer.Navigator>
