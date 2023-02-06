@@ -29,7 +29,7 @@ export default function App() {
                             width: 150,
                         },
                 })}>
-                    <Drawer.Screen name='Meals'
+                    <Drawer.Screen name='Home'
                                    component={MealsHomeScreen}
                                    initialParams={{
                                        initialRoute: 'MealsCategories',
