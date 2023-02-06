@@ -21,8 +21,14 @@ function MealDetailScreen({ route, navigation }) {
     }
 
     function headerButtonPressHandler() {
-        if (!favoriteMeals.includes(mealId)) favoriteMeals.push(mealId);
-        setHeaderIcon(true);
+        if (favoriteMeals.includes(mealId)) {
+            favoriteMeals.pop(mealId);
+            setHeaderIcon(false);
+        }
+        else {
+            favoriteMeals.push(mealId);
+            setHeaderIcon(true);
+        }
     }
 
     useEffect(() => {
