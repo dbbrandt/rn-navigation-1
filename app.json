@@ -3,9 +3,10 @@
     "name": "rn-navigation-1",
     "slug": "rn-navigation-1",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "auto",
+    "backgroundColor": "#622a09",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

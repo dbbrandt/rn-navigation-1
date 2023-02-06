@@ -1,20 +1,67 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {StatusBar} from 'expo-status-bar';
+import {StyleSheet, View, } from 'react-native';
+import { NavigationContainer, CommonActions  } from "@react-navigation/native";
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import MealsHomeScreen from "./screens/mealsHomeScreen";
+
+const Drawer = createDrawerNavigator();
+const favoriteMeals = [];
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Hello World!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    return (
+        <View style={styles.rootContainer}>
+            <StatusBar style="light"/>
+            <NavigationContainer>
+                <Drawer.Navigator
+                    initialRouteName='FavoritesOverview'
+                    conentOptions={{
+                        activeTintColor: 'white',
+                        activeBackgroundColor: 'transparent',
+                        inactiveTintColor: 'black',
+                        inactiveBackgroundColor: 'transparent',
+                    }}
+                    screenOptions={({
+                        headerShown: false,
+                        drawerActiveTintColor: 'white',
+                        drawerInactiveTintColor: '#512203',
+                        drawerStyle: {
+                            backgroundColor: '#b79783',
+                            width: 150,
+                        },
+                })}>
+                    <Drawer.Screen name='Meals'
+                                   component={MealsHomeScreen}
+                                   initialParams={{
+                                       initialRoute: 'MealsCategories',
+                                       favoriteMeals: favoriteMeals,
+                                       goHome: false,
+                                   }}
+                                   listeners={({navigation, route}) => ({
+                                       drawerItemPress: (e) =>{
+                                           // e.preventDefault();
+                                           navigation.dispatch(CommonActions.setParams({ goHome: true }));
+                                       }
+                                   })}
+                    />
+                    <Drawer.Screen name='FavoritesHome'
+                                   component={MealsHomeScreen}
+                                   initialParams={{
+                                       initialRoute: 'Favorites',
+                                       favoriteMeals: favoriteMeals
+                                   }}
+                                   options={{ drawerLabel: 'Favorites' }}
+
+                    />
+
+                </Drawer.Navigator>
+            </NavigationContainer>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    rootContainer: {
+        flex: 1,
+        marginTop: 60,
+    },
 });
