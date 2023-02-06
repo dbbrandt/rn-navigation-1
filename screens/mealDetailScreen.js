@@ -12,24 +12,25 @@ function MealDetailScreen({ route, navigation }) {
     const mealData = MEALS.find((meal) => meal.id === mealId);
     const {overviewItems, dietaryItems} = BooleanMealData(mealData);
 
-    function headerButtonPressHandler() {
-        console.log(`Added favorite: ${mealId} - ${mealData.title} to ${favoriteMeals}`);
-        if (!favoriteMeals.includes(mealId)) favoriteMeals.push(mealId);
-    }
-
-    useLayoutEffect(() => {
+    function setHeaderIcon(selected) {
         navigation.setOptions({
             headerRight: () => {
-                return <IconButton icon='star' color='white' onPress={headerButtonPressHandler}/>
+                return <IconButton icon='star' color={selected ? 'red' : 'white'} onPress={headerButtonPressHandler}/>
             }
         })
-    }, [navigation, headerButtonPressHandler]);
+    }
+
+    function headerButtonPressHandler() {
+        if (!favoriteMeals.includes(mealId)) favoriteMeals.push(mealId);
+        setHeaderIcon(true);
+    }
 
     useEffect(() => {
+        setHeaderIcon( favoriteMeals.includes(mealId))
         navigation.setOptions({
                 title: mealData.title,
             }
-    )}, [mealData, navigation]);
+    )}, [mealData, route, navigation]);
 
     return (
         <ScrollView style={styles.rootContainer}>

@@ -14,8 +14,20 @@ export default function App() {
             <NavigationContainer>
                 <Drawer.Navigator
                     initialRouteName='FavoritesOverview'
+                    conentOptions={{
+                        activeTintColor: 'white',
+                        activeBackgroundColor: 'transparent',
+                        inactiveTintColor: 'black',
+                        inactiveBackgroundColor: 'transparent',
+                    }}
                     screenOptions={({
-                        headerShown: false
+                        headerShown: false,
+                        drawerActiveTintColor: 'white',
+                        drawerInactiveTintColor: '#512203',
+                        drawerStyle: {
+                            backgroundColor: '#b79783',
+                            width: 150,
+                        },
                 })}>
                     <Drawer.Screen name='Home'
                                    component={MealsHomeScreen}
