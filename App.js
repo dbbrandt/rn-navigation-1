@@ -38,7 +38,6 @@ export default function App() {
                                    }}
                                    listeners={({navigation, route}) => ({
                                        drawerItemPress: (e) =>{
-                                           // e.preventDefault();
                                            navigation.dispatch(CommonActions.setParams({ goHome: true }));
                                        }
                                    })}

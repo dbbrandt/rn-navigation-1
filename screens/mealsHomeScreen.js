@@ -19,7 +19,8 @@ function MealsHomeScreen({route, navigation}) {
 
     useEffect(() => {
         const goHome = route.params.goHome;
-        if (goHome) {
+        // Verify we don't pop the stack if we are already at the top (i.e. canGoBack).
+        if (goHome && navigation.canGoBack()) {
             navigation.dispatch(CommonActions.setParams({ goHome: false }));
             navigation.dispatch(StackActions.popToTop());
         }
@@ -40,14 +41,6 @@ function MealsHomeScreen({route, navigation}) {
                 initialParams={{
                     favoriteMeals: favoriteMeals,
                 }}
-                // listeners={({navigation, route}) => ({
-                //     transitionStart: (e) =>{
-                //         // e.preventDefault();
-                //         let  resetToHome = route.params.goHome;
-                //         console.log(`stack transition: goHome: ${goHome}`);
-                //         if (resetToHome) navigation.dispatch(StackActions.popToTop());
-                //     }
-                // })}
                 options={{
                     title: 'All Categories',
                     headerLeft: () => {
