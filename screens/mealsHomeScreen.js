@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import {useEffect} from "react";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import CategoriesScreen from "./categoriesScreen";
 import MealsOverviewScreen from "./mealsOverviewScreen";
@@ -6,12 +6,12 @@ import MealDetailScreen from "./mealDetailScreen";
 import IconButton from "../components/iconButton";
 import FavoritesScreen from "./favoritesScreen";
 import {CommonActions, StackActions} from "@react-navigation/native";
-// import { useNavigation } from "@react-navigation/native";
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator();
 
 function MealsHomeScreen({route, navigation}) {
-    const { initialRoute, favoriteMeals } = route.params;
+    const {initialRoute, favoriteMeals} = route.params;
 
     function headerButtonPressHandler() {
         navigation.openDrawer();
@@ -19,9 +19,14 @@ function MealsHomeScreen({route, navigation}) {
 
     useEffect(() => {
         const goHome = route.params.goHome;
-        // Verify we don't pop the stack if we are already at the top (i.e. canGoBack).
-        if (goHome && navigation.canGoBack()) {
-            navigation.dispatch(CommonActions.setParams({ goHome: false }));
+        const subRoute = getFocusedRouteNameFromRoute(route)
+        // Verify we don't pop the stack unless the subroute is defined and not already to top route.
+        // PopToTop throws an exception if you are already at the top
+        // Note: A side effect is this will pop the Favorites stack as well if you are not on 'MealsCategories'
+        // in the Categories Stack since this MealsHomeScreen handles both categories and favorites to avoid
+        // duplicating code.
+        if (goHome && subRoute && subRoute !== 'MealsCategories') {
+            navigation.dispatch(CommonActions.setParams({goHome: false}));
             navigation.dispatch(StackActions.popToTop());
         }
     }, [route, navigation])
@@ -58,7 +63,7 @@ function MealsHomeScreen({route, navigation}) {
                     contentStyle: {backgroundColor: '#d4ae95'}
                 }}
 
-        />
+            />
             <Stack.Screen name="MealDetail" component={MealDetailScreen}/>
             <Stack.Screen name='Favorites'
                           component={FavoritesScreen}
