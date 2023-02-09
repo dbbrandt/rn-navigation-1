@@ -49,7 +49,7 @@ function MealsHomeScreen({route, navigation}) {
                 options={{
                     title: 'All Categories',
                     headerLeft: () => {
-                        return <IconButton icon='home' color='white' onPress={headerButtonPressHandler}/>
+                        return <IconButton icon='menu' color='white' onPress={headerButtonPressHandler}/>
                     }
                 }}
             />
@@ -74,7 +74,7 @@ function MealsHomeScreen({route, navigation}) {
                               title: 'Favorites',
                               contentStyle: {backgroundColor: '#d4ae95'},
                               headerLeft: () => {
-                                  return <IconButton icon='home' color='white' onPress={headerButtonPressHandler}/>
+                                  return <IconButton icon='menu' color='white' onPress={headerButtonPressHandler}/>
                               }
                           }}
             />

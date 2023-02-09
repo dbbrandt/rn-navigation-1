@@ -3,6 +3,7 @@ import {StyleSheet, View, } from 'react-native';
 import { NavigationContainer, CommonActions  } from "@react-navigation/native";
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import MealsHomeScreen from "./screens/mealsHomeScreen";
+import {Ionicons} from '@expo/vector-icons';
 
 const Drawer = createDrawerNavigator();
 const favoriteMeals = [];
@@ -26,7 +27,7 @@ export default function App() {
                         drawerInactiveTintColor: '#512203',
                         drawerStyle: {
                             backgroundColor: '#b79783',
-                            width: 150,
+                            width: 200,
                         },
                 })}>
                     <Drawer.Screen name='Home'
@@ -41,6 +42,10 @@ export default function App() {
                                            navigation.dispatch(CommonActions.setParams({ goHome: true }));
                                        }
                                    })}
+                                   options={{
+                                       drawerIcon: ({color, size}) =>
+                                           <Ionicons name="home" color={color} size={size}/>
+                                   }}
                     />
                     <Drawer.Screen name='FavoritesHome'
                                    component={MealsHomeScreen}
@@ -48,7 +53,11 @@ export default function App() {
                                        initialRoute: 'Favorites',
                                        favoriteMeals: favoriteMeals
                                    }}
-                                   options={{ drawerLabel: 'Favorites' }}
+                                   options={{
+                                       drawerLabel: 'Favorites',
+                                       drawerIcon: ({color, size}) =>
+                                           <Ionicons name="star" color={color} size={size}/>
+                                   }}
 
                     />
 
