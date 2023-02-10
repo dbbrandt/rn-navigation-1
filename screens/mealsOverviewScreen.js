@@ -5,7 +5,7 @@ import MealItem from "../components/mealItem";
 
 
 function MealsOverviewScreen({ route, navigation }) {
-    const { categoryId, color, favoriteMeals } = route.params;
+    const { categoryId, color } = route.params;
     const meals = MEALS.filter((mealsItem) => mealsItem.categoryIds.includes(categoryId));
 
     function renderMealItem(itemData) {
