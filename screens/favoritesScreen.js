@@ -1,22 +1,22 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useIsFocused } from '@react-navigation/native'
 import {View, Text, FlatList, StyleSheet} from "react-native";
 import MealItem from "../components/mealItem";
-import { MealsContext} from "../components/mealsContext";
+import {FavoritesContext} from "../store/context/favoritesContext";
 
 function FavoritesScreen({route, navigation}) {
-    const context = useContext(MealsContext);
-    const favoriteMeals = context.favoriteMeals;
-    const isFocused = useIsFocused();
+    const context = useContext(FavoritesContext);
+    const { favoriteMeals } = context;
+    // const isFocused = useIsFocused();
     let favoriteCount = favoriteMeals.length;
 
     function renderMealItem(itemData) {
         return <MealItem mealId={itemData.item} favoriteMeals={favoriteMeals}/>
     }
 
-    useIsFocused(() => {
+    useEffect(() => {
         favoriteCount = favoriteMeals.length;
-    }, [isFocused])
+    }, [context])
 
     return (
         <View style={styles.container}>

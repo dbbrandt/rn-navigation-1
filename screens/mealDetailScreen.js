@@ -1,46 +1,46 @@
-import { useContext } from 'react';
-import {ScrollView, View, Text, StyleSheet, Image } from 'react-native';
+import {useContext} from 'react';
+import {ScrollView, View, Text, StyleSheet, Image} from 'react-native';
 import BooleanView from "../components/booleanView";
 import BooleanMealData from "../data/BooleanMealData";
-import { MEALS } from '../data/dummy-data';
-import {useEffect} from "react";
+import {MEALS} from '../data/dummy-data';
+import {useLayoutEffect} from "react";
 import IconButton from "../components/iconButton";
-import { MealsContext } from "../components/mealsContext";
+import {FavoritesContext} from "../store/context/favoritesContext";
 
 
-function MealDetailScreen({ route, navigation }) {
-    const context = useContext(MealsContext);
-    const { favoriteMeals, setFavoriteMeals } = context;
-    const { mealId } = route.params;
+function MealDetailScreen({route, navigation}) {
+    const context = useContext(FavoritesContext);
+    const {favoriteMeals, addFavorite, removeFavorite} = context;
+    const {mealId} = route.params;
     const mealData = MEALS.find((meal) => meal.id === mealId);
     const {overviewItems, dietaryItems} = BooleanMealData(mealData);
+    const isFavoriteMeal = favoriteMeals.includes(mealId);
 
-    function setHeaderIcon(selected) {
+    function setHeaderIcon() {
         navigation.setOptions({
             headerRight: () => {
-                return <IconButton icon='star' color={selected ? 'red' : 'white'} onPress={headerButtonPressHandler}/>
+                return <IconButton icon={isFavoriteMeal ? 'star' : 'star-outline'} color='white' onPress={headerButtonPressHandler}/>
             }
         })
     }
 
     function headerButtonPressHandler() {
-        if (favoriteMeals.includes(mealId)) {
-            favoriteMeals.pop(mealId);
-            setHeaderIcon(false);
+        if (isFavoriteMeal) {
+            console.log(`MealDetail: removeFavorite: ${mealId} favorites: ${favoriteMeals}`)
+            removeFavorite(mealId);
+        } else {
+            console.log(`MealDetail: addFavorite: ${mealId} favorites: ${favoriteMeals}`)
+            addFavorite(mealId)
         }
-        else {
-            favoriteMeals.push(mealId);
-            setHeaderIcon(true);
-        }
-        setFavoriteMeals(favoriteMeals);
     }
 
-    useEffect(() => {
-        setHeaderIcon( favoriteMeals.includes(mealId))
+    useLayoutEffect(() => {
+        setHeaderIcon();
         navigation.setOptions({
                 title: mealData.title,
             }
-    )}, [mealData, route, navigation]);
+        )
+    }, [headerButtonPressHandler, route]);
 
     return (
         <ScrollView style={styles.rootContainer}>

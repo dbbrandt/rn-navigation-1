@@ -5,7 +5,7 @@ import BooleanView from "./booleanView";
 import BooleanMealData from "../data/BooleanMealData";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import { MEALS } from '../data/dummy-data';
-import { MealsContext } from "../components/mealsContext";
+import { FavoritesContext } from "../store/context/favoritesContext";
 
 
 function MealItem({mealId}) {
@@ -13,10 +13,10 @@ function MealItem({mealId}) {
     const {overviewItems, dietaryItems} = BooleanMealData(mealData);
     const items = [...overviewItems, ...dietaryItems];
     const navigation = useNavigation();
-    const context = useContext(MealsContext);
+    const context = useContext(FavoritesContext);
 
     function mealSelectionHandler() {
-        const favoriteMeals = context.favoriteMeals;
+        const { favoriteMeals } = context;
         navigation.navigate('MealDetail', {mealId: mealData.id });
     }
 

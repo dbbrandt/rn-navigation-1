@@ -1,22 +1,16 @@
-import {useState} from 'react';
 import {StatusBar} from 'expo-status-bar';
 import {StyleSheet, View,} from 'react-native';
 import {NavigationContainer, CommonActions} from "@react-navigation/native";
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import MealsHomeScreen from "./screens/mealsHomeScreen";
-import { MealsContext } from "./components/mealsContext";
+import FavoritesContextProvider from "./store/context/favoritesContext";
 import {Ionicons} from '@expo/vector-icons';
 
 const Drawer = createDrawerNavigator();
 
 export default function App() {
-    const [favoriteMeals, setFavoriteMeals] = useState([]);
-
     return (
-        <MealsContext.Provider value={{
-            favoriteMeals: favoriteMeals,
-            setFavoriteMeals: setFavoriteMeals,
-        }}>
+        <FavoritesContextProvider>
             <View style={styles.rootContainer}>
                 <StatusBar style="light"/>
                 <NavigationContainer>
@@ -69,8 +63,7 @@ export default function App() {
                     </Drawer.Navigator>
                 </NavigationContainer>
             </View>
-        </MealsContext.Provider>
-
+        </FavoritesContextProvider>
     );
 }
 
