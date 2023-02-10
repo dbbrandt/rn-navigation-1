@@ -1,9 +1,12 @@
+import { useContext } from "react";
 import { useIsFocused } from '@react-navigation/native'
 import {View, Text, FlatList, StyleSheet} from "react-native";
 import MealItem from "../components/mealItem";
+import { MealsContext} from "../components/mealsContext";
 
 function FavoritesScreen({route, navigation}) {
-    const favoriteMeals = route.params.favoriteMeals;
+    const context = useContext(MealsContext);
+    const favoriteMeals = context.favoriteMeals;
     const isFocused = useIsFocused();
     let favoriteCount = favoriteMeals.length;
 
