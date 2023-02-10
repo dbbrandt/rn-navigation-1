@@ -27,7 +27,10 @@ function MealsHomeScreen({route, navigation}) {
         // duplicating code.
         if (goHome && subRoute && subRoute !== 'MealsCategories') {
             navigation.dispatch(CommonActions.setParams({goHome: false}));
-            navigation.dispatch(StackActions.popToTop());
+            // Can be commented back in to force Meals stack back to top.
+            // Looking for ways to let the user do this if desired
+            // rather than as a default behavior.
+            // navigation.dispatch(StackActions.popToTop());
         }
     }, [route, navigation])
 
