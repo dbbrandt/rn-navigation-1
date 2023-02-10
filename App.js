@@ -15,7 +15,7 @@ export default function App() {
     return (
         <MealsContext.Provider value={{
             favoriteMeals: favoriteMeals,
-            setFav: (meals) => setFavoriteMeals(meals),
+            setFavoriteMeals: setFavoriteMeals,
         }}>
             <View style={styles.rootContainer}>
                 <StatusBar style="light"/>

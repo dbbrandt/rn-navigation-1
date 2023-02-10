@@ -1,14 +1,17 @@
-import { useLayoutEffect } from 'react';
+import { useContext } from 'react';
 import {ScrollView, View, Text, StyleSheet, Image } from 'react-native';
 import BooleanView from "../components/booleanView";
 import BooleanMealData from "../data/BooleanMealData";
 import { MEALS } from '../data/dummy-data';
 import {useEffect} from "react";
 import IconButton from "../components/iconButton";
+import { MealsContext } from "../components/mealsContext";
 
 
 function MealDetailScreen({ route, navigation }) {
-    const { mealId, favoriteMeals } = route.params;
+    const context = useContext(MealsContext);
+    const { favoriteMeals, setFavoriteMeals } = context;
+    const { mealId } = route.params;
     const mealData = MEALS.find((meal) => meal.id === mealId);
     const {overviewItems, dietaryItems} = BooleanMealData(mealData);
 
@@ -29,6 +32,7 @@ function MealDetailScreen({ route, navigation }) {
             favoriteMeals.push(mealId);
             setHeaderIcon(true);
         }
+        setFavoriteMeals(favoriteMeals);
     }
 
     useEffect(() => {
