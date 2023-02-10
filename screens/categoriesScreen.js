@@ -3,7 +3,6 @@ import {CATEGORIES} from "../data/dummy-data";
 import CategoryGrid from "../components/categoryGrid";
 
 function CategoriesScreen({ route, navigation }) {
-    const favoriteMeals = route.params.favoriteMeals;
     const {height, width} = useWindowDimensions();
     const columns = width > 600 ? 3 : 2;
 
@@ -12,8 +11,7 @@ function CategoriesScreen({ route, navigation }) {
             navigation.navigate('MealsOverview', {
                 categoryId: itemData.item.id,
                 title: itemData.item.title,
-                color: itemData.item.color,
-                favoriteMeals: favoriteMeals,
+                color: itemData.item.color
             });
         }
 
