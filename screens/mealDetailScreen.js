@@ -1,16 +1,20 @@
-import {useContext} from 'react';
+// import {useContext} from 'react';
+// import {FavoritesContext} from "../store/context/favoritesContext";
+import {useSelector, useDispatch} from 'react-redux';
 import {ScrollView, View, Text, StyleSheet, Image} from 'react-native';
 import BooleanView from "../components/booleanView";
 import BooleanMealData from "../data/BooleanMealData";
 import {MEALS} from '../data/dummy-data';
 import {useLayoutEffect} from "react";
 import IconButton from "../components/iconButton";
-import {FavoritesContext} from "../store/context/favoritesContext";
-
+import {addFavorite, removeFavorite} from '../store/redux/favorites';
 
 function MealDetailScreen({route, navigation}) {
-    const context = useContext(FavoritesContext);
-    const {favoriteMeals, addFavorite, removeFavorite} = context;
+    // const context = useContext(FavoritesContext);
+    // const {favoriteMeals, addFavorite, removeFavorite} = context;
+    const favoriteMeals = useSelector((state) => state.favorites.favoriteMeals);
+    const dispatch = useDispatch();
+
     const {mealId} = route.params;
     const mealData = MEALS.find((meal) => meal.id === mealId);
     const {overviewItems, dietaryItems} = BooleanMealData(mealData);
@@ -19,16 +23,19 @@ function MealDetailScreen({route, navigation}) {
     function setHeaderIcon() {
         navigation.setOptions({
             headerRight: () => {
-                return <IconButton icon={isFavoriteMeal ? 'star' : 'star-outline'} color='white' onPress={headerButtonPressHandler}/>
+                return <IconButton icon={isFavoriteMeal ? 'star' : 'star-outline'} color='white'
+                                   onPress={headerButtonPressHandler}/>
             }
         })
     }
 
     function headerButtonPressHandler() {
         if (isFavoriteMeal) {
-            removeFavorite(mealId);
+            // removeFavorite(mealId);
+            dispatch(removeFavorite({id: mealId}));
         } else {
-            addFavorite(mealId)
+            // addFavorite(mealId)
+            dispatch(addFavorite({id: mealId}));
         }
     }
 

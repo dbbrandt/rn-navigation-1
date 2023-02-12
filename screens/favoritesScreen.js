@@ -1,13 +1,16 @@
 import { useContext, useEffect } from "react";
-import { useIsFocused } from '@react-navigation/native'
+// import { useIsFocused } from '@react-navigation/native'
+import {useSelector } from 'react-redux';
+// import {FavoritesContext} from "../store/context/favoritesContext";
+
 import {View, Text, FlatList, StyleSheet} from "react-native";
 import MealItem from "../components/mealItem";
-import {FavoritesContext} from "../store/context/favoritesContext";
 
 function FavoritesScreen({route, navigation}) {
-    const context = useContext(FavoritesContext);
-    const { favoriteMeals } = context;
+    // const context = useContext(FavoritesContext);
+    // const { favoriteMeals } = context;
     // const isFocused = useIsFocused();
+    const favoriteMeals = useSelector((state) => state.favorites.favoriteMeals)
     let favoriteCount = favoriteMeals.length;
 
     function renderMealItem(itemData) {
@@ -16,7 +19,7 @@ function FavoritesScreen({route, navigation}) {
 
     useEffect(() => {
         favoriteCount = favoriteMeals.length;
-    }, [context])
+    }, [favoriteMeals])
 
     return (
         <View style={styles.container}>

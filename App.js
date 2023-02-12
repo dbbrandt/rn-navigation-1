@@ -3,14 +3,17 @@ import {StyleSheet, View,} from 'react-native';
 import {NavigationContainer, CommonActions} from "@react-navigation/native";
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import MealsHomeScreen from "./screens/mealsHomeScreen";
-import FavoritesContextProvider from "./store/context/favoritesContext";
+// import FavoritesContextProvider from "./store/context/favoritesContext";
+import { Provider } from 'react-redux';
+import { store } from "./store/redux/store";
+
 import {Ionicons} from '@expo/vector-icons';
 
 const Drawer = createDrawerNavigator();
 
 export default function App() {
     return (
-        <FavoritesContextProvider>
+        <Provider store={store}>
             <View style={styles.rootContainer}>
                 <StatusBar style="light"/>
                 <NavigationContainer>
@@ -63,7 +66,7 @@ export default function App() {
                     </Drawer.Navigator>
                 </NavigationContainer>
             </View>
-        </FavoritesContextProvider>
+        </Provider>
     );
 }
 
