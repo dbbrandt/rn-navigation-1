@@ -26,10 +26,8 @@ function MealDetailScreen({route, navigation}) {
 
     function headerButtonPressHandler() {
         if (isFavoriteMeal) {
-            console.log(`MealDetail: removeFavorite: ${mealId} favorites: ${favoriteMeals}`)
             removeFavorite(mealId);
         } else {
-            console.log(`MealDetail: addFavorite: ${mealId} favorites: ${favoriteMeals}`)
             addFavorite(mealId)
         }
     }
